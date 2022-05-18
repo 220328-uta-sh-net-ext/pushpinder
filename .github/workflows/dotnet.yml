@@ -1,0 +1,28 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: # manually trigger the workflow
+
+env:
+  WORKING_DIRECTORY: 4-DevOps/PokemonApp
+jobs:
+  build:
+    # 
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore ${{env.WORKING_DIRECTORY}}/PokemonApi
+    - name: Build
+      run: dotnet build --no-restore ${{env.WORKING_DIRECTORY}}/PokemonApi
+    - name: Test
+      run: dotnet test --no-build --verbosity normal ${{env.WORKING_DIRECTORY}}/PokemonApi
