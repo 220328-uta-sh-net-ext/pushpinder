@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # manually trigger the workflow
 
 env:
-  WORKING_DIRECTORY: 4-DevOps/PokemonApp
+  WORKING_DIRECTORY: PokemonApp
 jobs:
   build:
     # 
